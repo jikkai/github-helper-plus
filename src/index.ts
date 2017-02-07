@@ -1,20 +1,26 @@
-import { createGist } from './utils/api'
+import { auth, createGist, getGist } from './utils/api'
 
 import './remark'
 
 import './style.css'
 
-const isInit: Boolean = localStorage.getItem('init_code') === null
+auth().then((resp) => {
+  const { id } = resp.data
+  localStorage.setItem('id', id)
 
-if (isInit) {
-  createGist({
-    description: 'Github Helper Plus Sync Settings GIST',
-    files: {
-      ghpsync: {
-        content: 'String file contents'
+  getGist().then((resp) => {
+    const { ghpsync } = resp.data.files
+    localStorage.setItem('settings', ghpsync.content)
+  }).catch(() => {
+    createGist({
+      description: 'Github Helper Plus Sync Settings GIST',
+      files: {
+        ghpsync: {
+          content: '{}'
+        }
       }
-    }
-  }).then((resp) => {
-    localStorage.setItem('init_code', '1')
+    }).then((resp) => {
+      localStorage.setItem('init_code', '1')
+    })
   })
-}
+})

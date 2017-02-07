@@ -1,21 +1,21 @@
 import Axios from 'axios'
 
 const TOKEN = ''
+const GIST_ID = ''
 
 const axios = Axios.create({
   baseURL: 'https://api.github.com',
   headers: { 'Authorization': `token ${TOKEN}` }
 })
 
-interface Gist {
-  description: String,
-  files: {
-    ghpsync: {
-      content: String
-    }
-  }
+export const auth = () => {
+  return axios.get(`/user`)
 }
 
-export const createGist = (gist: Gist) => {
+export const getGist = () => {
+  return axios.get(`/gists/${GIST_ID}`)
+}
+
+export const createGist = (gist: Object) => {
   return axios.post(`/gists`, gist)
 }
