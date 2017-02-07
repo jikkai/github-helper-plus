@@ -1,3 +1,30 @@
-export default () => {
-  console.log(123)
+import { $$ } from './utils/dom'
+import { createGist } from './utils/api'
+
+const getName = () => {
+  const name = 'test'
+  return name
 }
+
+const editName = () => {
+  const name = prompt() || getName()
+  nicknameEle.innerText = `(${name})`
+}
+
+const createName = () => {
+  const nickname = document.createElement('span')
+  nickname.className = 'ghp-nickname'
+  nickname.innerText = `(${getName()})`
+
+  nickname.ondblclick = editName
+
+  return nickname
+}
+
+const nicknameEle = createName()
+
+const remark = (nicknameEle: HTMLElement) => {
+  $$('.vcard-fullname') && $$('.vcard-fullname').appendChild(nicknameEle)
+}
+
+export default remark(nicknameEle)

@@ -10,6 +10,7 @@
     "16": "icon_16.png"
   },
   "permissions": [
+    "*://*.github.com/*"
   ],
   "content_scripts": [
     {
