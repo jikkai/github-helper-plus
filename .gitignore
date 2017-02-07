@@ -1,0 +1,8 @@
+# folders
+.vscode
+node_modules
+dist
+
+# files
+*.log
+.DS_Store

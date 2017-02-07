@@ -1,0 +1,34 @@
+{
+  "name": "github-helper-plus",
+  "version": "0.0.1",
+  "description": "Get a better idea about github!",
+  "main": "index.js",
+  "repository": "https://github.com/jikkai/github-helper-plus.git",
+  "author": "Jikkai Xiao <sonne@asaki.me>",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf -rf ./dist",
+    "build": "gulp bundle && gulp move",
+    "dev": "npm run build && gulp watch",
+    "lint": "eslint ./src"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.5",
+    "file-loader": "^0.10.0",
+    "gulp": "^3.9.1",
+    "postcss-loader": "^1.2.2",
+    "postcss-salad": "^1.0.8",
+    "pre-commit": "^1.2.2",
+    "progress-bar-webpack-plugin": "^1.9.3",
+    "rimraf": "^2.5.4",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^2.0.0",
+    "typescript": "next",
+    "webpack": "^2.2.0",
+    "webpack-stream": "^3.2.0"
+  }
+}
