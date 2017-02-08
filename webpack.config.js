@@ -19,6 +19,7 @@ const config = {
 module.exports = {
   entry: {
     app: './src/app/index.ts',
+    background: './src/background/index.ts',
     options: './src/options/index.ts'
   },
   output: {

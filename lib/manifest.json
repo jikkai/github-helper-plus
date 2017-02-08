@@ -16,8 +16,7 @@
   ],
   "options_page": "options/index.html",
   "background": {
-    "persistent": true,
-    "scripts": ["app/app.js"]
+    "scripts": ["background/background.js"]
   },
   "content_scripts": [
     {

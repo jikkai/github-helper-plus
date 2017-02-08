@@ -19,12 +19,7 @@ const Remark = (content: any) => {
   if (remark) {
   }
 
-  console.log(chrome)
   init()
-
-  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    init()
-  })
 }
 
 export default Remark
