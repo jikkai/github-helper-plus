@@ -10,14 +10,18 @@
     "16": "icons/icon_16.png"
   },
   "permissions": [
+    "tabs",
     "storage",
     "*://*.github.com/*"
   ],
   "options_page": "options/index.html",
+  "background": {
+    "persistent": true,
+    "scripts": ["app/app.js"]
+  },
   "content_scripts": [
     {
       "matches": ["*://*.github.com/*"],
-      "js": ["app/app.js"],
       "css": ["app/app.css"]
     }
   ]

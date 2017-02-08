@@ -1,3 +1,3 @@
 export const $$ = (selector: string) => {
-  return document.querySelector(selector)
+  return <HTMLElement>document.querySelector(selector)
 }

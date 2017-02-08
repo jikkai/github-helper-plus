@@ -12,6 +12,7 @@
     "dev": "npm run build && gulp watch"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.39",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.5",
     "file-loader": "^0.10.0",
@@ -27,7 +28,6 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
-    "@types/chrome": "^0.0.39",
     "axios": "^0.15.3"
   }
 }

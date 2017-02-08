@@ -2,6 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "target": "es5",
+    "lib": [
+      "es2016",
+      "dom"
+    ],
     "types" : [
       "chrome"
     ]
