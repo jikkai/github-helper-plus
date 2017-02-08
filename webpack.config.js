@@ -18,11 +18,12 @@ const config = {
 
 module.exports = {
   entry: {
-    app: './src/index.ts'
+    app: './src/app/index.ts',
+    options: './src/options/index.ts'
   },
   output: {
     path: path.join(__dirname, './dist'),
-    filename: '[name].js',
+    filename: '[name]/[name].js',
     publicPath: './'
   },
   resolve: {
@@ -59,7 +60,7 @@ module.exports = {
   },
   plugins: [
     new ProgressBarPlugin(),
-    new ExtractTextPlugin('app.css'),
+    new ExtractTextPlugin('[name]/[name].css'),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),

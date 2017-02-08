@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "target": "es5"
+    "target": "es5",
+    "types" : [
+      "chrome"
+    ]
   },
   "include": [
     "./src/**/*"

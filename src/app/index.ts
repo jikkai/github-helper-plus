@@ -1,4 +1,4 @@
-import { auth, createGist, getGist } from './utils/api'
+import { auth, createGist, getGist } from '../utils/api'
 
 import './remark'
 

@@ -27,6 +27,7 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "@types/chrome": "^0.0.39",
     "axios": "^0.15.3"
   }
 }

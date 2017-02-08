@@ -5,18 +5,20 @@
   "manifest_version": 2,
   "description": "Get a better idea about github!",
   "icons": {
-    "128": "icon_128.png",
-    "48": "icon_48.png",
-    "16": "icon_16.png"
+    "128": "icons/icon_128.png",
+    "48": "icons/icon_48.png",
+    "16": "icons/icon_16.png"
   },
   "permissions": [
+    "storage",
     "*://*.github.com/*"
   ],
+  "options_page": "options/index.html",
   "content_scripts": [
     {
       "matches": ["*://*.github.com/*"],
-      "js": ["app.js"],
-      "css": ["app.css"]
+      "js": ["app/app.js"],
+      "css": ["app/app.css"]
     }
   ]
 }

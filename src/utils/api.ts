@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
-const TOKEN = ''
-const GIST_ID = ''
+const TOKEN = localStorage.getItem('TOKEN') || ''
+const GIST_ID = localStorage.getItem('GIST_ID') || ''
 
 const axios = Axios.create({
   baseURL: 'https://api.github.com',

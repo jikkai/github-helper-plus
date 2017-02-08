@@ -9,7 +9,7 @@ gulp.task('bundle', () => {
 })
 
 gulp.task('move', () => {
-  return gulp.src('./lib/*')
+  return gulp.src('./lib/**/**')
     .pipe(gulp.dest('./dist'))
 })
 

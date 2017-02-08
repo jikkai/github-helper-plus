@@ -1,7 +1,9 @@
-import { $$ } from './utils/dom'
-import { createGist } from './utils/api'
+import { $$ } from '../utils/dom'
+import { createGist } from '../utils/api'
 
 const getName = () => {
+  const settings = JSON.parse(localStorage.getItem('settings'))
+  console.log(settings)
   const name = 'test'
   return name
 }

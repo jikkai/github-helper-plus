@@ -2,6 +2,22 @@
 # yarn lockfile v1
 
 
+"@types/chrome@^0.0.39":
+  version "0.0.39"
+  resolved "https://registry.npmjs.org/@types/chrome/-/chrome-0.0.39.tgz#c383cdd6a312dd3989c2fd7da39bcf9f47670457"
+  dependencies:
+    "@types/filesystem" "*"
+
+"@types/filesystem@*":
+  version "0.0.28"
+  resolved "https://registry.npmjs.org/@types/filesystem/-/filesystem-0.0.28.tgz#3fd7735830f2c7413cb5ac45780bc45904697b0e"
+  dependencies:
+    "@types/filewriter" "*"
+
+"@types/filewriter@*":
+  version "0.0.28"
+  resolved "https://registry.npmjs.org/@types/filewriter/-/filewriter-0.0.28.tgz#c054e8af4d9dd75db4e63abc76f885168714d4b3"
+
 abbrev@1:
   version "1.0.9"
   resolved "http://registry.npm.taobao.org/abbrev/download/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"
