@@ -1,16 +1,22 @@
 import { $$ } from '../../utils/dom'
 
 class Remark {
-  constructor (remark: any, API: any) {
-    const name = remark[$$('.vcard-username').innerText]
+  constructor (remark = {}, API: any) {
+    const fullnameEl: HTMLElement = $$('.vcard-fullname')
 
-    const nickname = document.createElement('span')
-    nickname.className = 'ghp-nickname'
-    nickname.innerText = `(${name || '双击修改备注名'})`
+    if (fullnameEl !== null) {
+      const name = remark[$$('.vcard-username').innerText]
 
-    nickname.ondblclick = this.editNickname(nickname, remark, API)
+      const nickname = document.createElement('span')
+      nickname.className = 'ghp-nickname'
+      nickname.innerText = `(${name || '双击修改备注名'})`
 
-    $$('.vcard-fullname') && $$('.vcard-fullname').appendChild(nickname)
+      nickname.ondblclick = this.editNickname(nickname, remark, API)
+
+      if (!fullnameEl.innerHTML.includes('ghp-nickname')) {
+        $$('.vcard-fullname') && $$('.vcard-fullname').appendChild(nickname)
+      }
+    }
   }
 
   editNickname (nickname: HTMLSpanElement, remark: any, API: any) {

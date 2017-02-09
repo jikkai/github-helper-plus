@@ -5,7 +5,7 @@ import Remark from './modules/remark'
 import './style.css'
 
 const storageCb = (data: any)=> {
-  const { TOKEN, GIST_ID } = data.GHP
+  let { TOKEN, GIST_ID } = data.GHP
 
   const axios = Axios.create({
     baseURL: 'https://api.github.com',
@@ -25,16 +25,22 @@ const storageCb = (data: any)=> {
       const { ghpsync } = resp.data.files
 
       Remark(JSON.parse(ghpsync.content), API)
-    }).catch(() => {
-      API.ADD_GIST({
-        description: 'Github Helper Plus Sync Settings GIST',
-        files: { ghpsync: { content: '{}' } }
-      }).then((resp) => {
-        const { id } = resp.data
-        chrome.storage.sync.set({
-          GHP: { TOKEN, GIST_ID: id }
+    }).catch((err: Error) => {
+      if (err.message === 'Request failed with status code 404') {
+        API.ADD_GIST({
+          description: 'Github Helper Plus Sync Settings GIST',
+          files: { ghpsync: { content: '{}' } }
+        }).then((resp) => {
+          const { id } = resp.data
+
+          GIST_ID = id
+          chrome.storage.sync.set({
+            GHP: { TOKEN, GIST_ID }
+          })
+
+          Remark({}, API)
         })
-      })
+      }
     })
   })
 }
