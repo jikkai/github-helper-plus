@@ -1,45 +1,71 @@
-import { $$ } from '../../utils/dom'
+import { $, $$ } from '../../utils/dom'
 
 class Remark {
-  constructor (remark = {}, API: any) {
+  remark: any
+  API: any
+
+  constructor (remark: any, API: any) {
+    this.remark = remark
+    this.API = API
+  }
+
+  editNickname (username: string, nickname: HTMLSpanElement) {
+    return () => {
+      const name = prompt('请输入备注名') || '双击修改备注名'
+
+      const content = {
+        remark: {
+          ...this.remark,
+          [username]: name
+        }
+      }
+
+      this.API.EDIT_GIST({
+        description: 'Github Helper Plus Sync Settings GIST',
+        files: { ghpsync: { content: JSON.stringify(content) } }
+      }).then(() => {
+        nickname.innerText = `(${name})`
+      })
+    }
+  }
+}
+
+class RemarkMain extends Remark {
+  init () {
     const fullnameEl: HTMLElement = $$('.vcard-fullname')
 
     if (fullnameEl !== null) {
-      const name = remark[$$('.vcard-username').innerText]
+      const name = this.remark[$$('.vcard-username').innerText]
+      const username = $$('.vcard-username').innerText
 
       const nickname = document.createElement('span')
       nickname.className = 'ghp-nickname'
       nickname.innerText = `(${name || '双击修改备注名'})`
 
-      nickname.ondblclick = this.editNickname(nickname, remark, API)
+      nickname.ondblclick = this.editNickname(username, nickname)
 
       if (!fullnameEl.innerHTML.includes('ghp-nickname')) {
         $$('.vcard-fullname') && $$('.vcard-fullname').appendChild(nickname)
       }
     }
   }
+}
 
-  editNickname (nickname: HTMLSpanElement, remark: any, API: any) {
-    return () => {
-      const name = prompt('请输入备注名') || '双击修改备注名'
-      nickname.innerText = `(${name})`
-
-      const content = {
-        remark: {
-          ...remark,
-          [$$('.vcard-username').innerText]: name
-        }
+class RemarkList extends Remark {
+  init () {
+    if (location.search.includes('tab=follow')) {
+      const userNodeList: Array<HTMLElement> = Array.from($('div.d-table-cell.col-9.v-align-top.pr-3 > a'))
+      
+      for (let item of userNodeList) {
+        console.log(item.innerText)
       }
-
-      API.EDIT_GIST({
-        description: 'Github Helper Plus Sync Settings GIST',
-        files: { ghpsync: { content: JSON.stringify(content) } }
-      })
     }
   }
 }
 
 export default (content: any, API: any) => {
   const { remark } = content
-  const instance = new Remark(remark, API)
+
+  new RemarkMain(remark, API).init()
+  new RemarkList(remark, API).init()
 }
