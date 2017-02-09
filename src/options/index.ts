@@ -11,10 +11,7 @@ buttonEl.onclick = () => {
   const GIST_ID: string  = idEl.value
 
   chrome.storage.sync.set({
-    GHP: {
-      TOKEN,
-      GIST_ID
-    }
+    GHP: { TOKEN, GIST_ID }
   }, () => {
     location.reload()
   })

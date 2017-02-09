@@ -16,18 +16,24 @@ const storageCb = (data: any)=> {
     GET_USER: axios.get(`/user`),
 
     GET_GIST: axios.get(`/gists/${GIST_ID}`),
-    ADD_GIST: gist => axios.post(`/gists`, gist)
+    ADD_GIST: gist => axios.post(`/gists`, gist),
+    EDIT_GIST: gist => axios.patch(`/gists/${GIST_ID}`, gist)
   }
 
   API.GET_USER.then((resp) => {
     API.GET_GIST.then((resp) => {
       const { ghpsync } = resp.data.files
 
-      Remark(ghpsync.content)
+      Remark(JSON.parse(ghpsync.content), API)
     }).catch(() => {
       API.ADD_GIST({
         description: 'Github Helper Plus Sync Settings GIST',
         files: { ghpsync: { content: '{}' } }
+      }).then((resp) => {
+        const { id } = resp.data
+        chrome.storage.sync.set({
+          GHP: { TOKEN, GIST_ID: id }
+        })
       })
     })
   })
