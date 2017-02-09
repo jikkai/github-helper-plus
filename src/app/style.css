@@ -1,3 +1,11 @@
+.user-profile-nav {
+  overflow: auto;
+}
+
+.underline-nav-item {
+  white-space: nowrap;
+}
+
 @component-namespace ghp {
   @c nickname {
     @d main {
