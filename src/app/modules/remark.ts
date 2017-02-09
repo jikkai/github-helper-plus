@@ -12,17 +12,14 @@ class Remark {
   editNickname (username: string, nickname: HTMLSpanElement) {
     return () => {
       const name = prompt('请输入备注名') || '双击修改备注名'
-
-      const content = {
-        remark: {
-          ...this.remark,
-          [username]: name
-        }
+      this.remark = {
+        ...this.remark,
+        [username]: name
       }
 
       this.API.EDIT_GIST({
         description: 'Github Helper Plus Sync Settings GIST',
-        files: { ghpsync: { content: JSON.stringify(content) } }
+        files: { ghpsync: { content: JSON.stringify({ remark: this.remark }) } }
       }).then(() => {
         nickname.innerText = `(${name})`
       })
