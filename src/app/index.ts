@@ -1,6 +1,7 @@
 import Axios from 'axios'
 
 import Remark from './modules/remark'
+import Icon from './modules/icon'
 
 import './style.css'
 
@@ -24,7 +25,9 @@ const storageCb = (data: any)=> {
     API.GET_GIST.then((resp) => {
       const { ghpsync } = resp.data.files
 
+      // Initial modules
       Remark(JSON.parse(ghpsync.content), API)
+      Icon()
     }).catch((err: Error) => {
       if (err.message === 'Request failed with status code 404') {
         API.ADD_GIST({
