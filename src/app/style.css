@@ -19,46 +19,4 @@
       font-weight: 300;
     }
   }
-
-  @c icon {
-    size: 14px;
-    background-size: cover;
-    display: block;
-    &.icon-css {
-      background-image: var(--css);
-    }
-    &.icon-js {
-      background-image: var(--js);
-    }
-    &.icon-jsx {
-      background-image: var(--jsx);
-    }
-    &.icon-json {
-      background-image: var(--json);
-    }
-    &.icon-vue {
-      background-image: var(--vue);
-    }
-    &.icon-html {
-      background-image: var(--html);
-    }
-    &.icon-java {
-      background-image: var(--java);
-    }
-    &.icon-jsp {
-      background-image: var(--jsp);
-    }
-    &.icon-md {
-      background-image: var(--md);
-    }
-    &.icon-yarn {
-      background-image: var(--yarn);
-    }
-    &.icon-gulpfile {
-      background-image: var(--gulpfile);
-    }
-    &.icon-npm {
-      background-image: var(--npm);
-    }
-  }
 }
