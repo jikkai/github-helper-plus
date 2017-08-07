@@ -78,5 +78,5 @@ class Icon {
 export default () => {
   setTimeout(_ => {
     new Icon()
-  }, 500)
+  }, 700)
 }
