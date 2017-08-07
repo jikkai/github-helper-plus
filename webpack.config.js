@@ -1,26 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-
-const config = {
-  postcss: [
-    require('postcss-salad')({
-      features: {
-        bem: {
-          shortcuts: { component: 'c', modifier: 'm', descendent: 'd' },
-          separators: { modifier: '--', descendent: '__' }
-        }
-      }
-    })
-  ]
-}
 
 module.exports = {
   entry: {
     app: './src/app/index.ts',
     background: './src/background/index.ts',
-    options: './src/options/index.ts'
   },
   output: {
     path: path.join(__dirname, './dist'),
@@ -49,7 +36,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          use: [{ loader: 'css-loader' }, 'postcss-loader'],
+          use: [{ loader: 'css-loader?minimize=true' }, 'postcss-loader'],
           fallback: 'style-loader'
         })
       },
@@ -61,6 +48,12 @@ module.exports = {
   },
   plugins: [
     new ProgressBarPlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, './public'),
+        to: path.join(__dirname, './dist')
+      }
+    ]),
     new ExtractTextPlugin('[name]/[name].css'),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
@@ -71,12 +64,6 @@ module.exports = {
       },
       output: {
         comments: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      options: {
-        postcss: config.postcss
       }
     })
   ]

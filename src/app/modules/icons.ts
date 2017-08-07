@@ -1,8 +1,9 @@
 import { $, $$ } from '../../utils/dom'
+import './icons'
 
 class Icon {
-  init () {
-    const contentEl = $('table.files td.content')
+  constructor () {
+    const $content = $('table.files td.content')
     const regObj = {
       babel: /^\.babelrc\.?(json|js)?$/,
       c: /\.c$/,
@@ -28,12 +29,12 @@ class Icon {
       lua: /\.lua$/,
       markdown: /\.md$/,
       nodejs: /\.node$/,
-      npm: /^(package\.json|\.npmignore)$/,
+      npm: /^(package(-lock)?\.json|\.npmignore)$/,
       pdf: /\.pdf$/,
       perl: /\.p(l|m)$/,
       php: /\.php$/,
       plist: /\.plist$/,
-      postcss: /^\.postcss\.?(js|json)?/,
+      postcss: /^\.?postcss\.?(js|json)?/,
       psd: /\.psd$/,
       pug: /\.pug$/,
       python: /\.py$/,
@@ -58,13 +59,13 @@ class Icon {
       yarn: /^yarn\.lock$/
     }
 
-    for (let i = 0, len = contentEl.length; i < len; i++) {
-      const content = contentEl[i].innerText
+    for (let i = 0, len = $content.length; i < len; i++) {
+      const content = $content[i].innerText
 
       for (let key in regObj) {
         if (regObj.hasOwnProperty(key)) {
           if (regObj[key].test(content.toLowerCase())) {
-            contentEl[i].previousElementSibling.innerHTML = `<i class="ghp-icon icon-${key}"></i>`
+            $content[i].previousElementSibling.innerHTML = `<i class="ghp-icon icon-${key}"></i>`
           }
         }
       }
@@ -73,7 +74,14 @@ class Icon {
 }
 
 export default () => {
-  setTimeout(() => {
-    new Icon().init()
-  }, 500)
+  const interval = setInterval(_ => {
+    const $icon = $('table.files td.icon')
+    for (let i = 0, len = $icon.length; i < len; i++) {
+      if (~$icon[0].innerHTML.indexOf('<svg')) {
+        clearInterval(interval)
+        new Icon()
+        break
+      }
+    }
+  }, 300)
 }
