@@ -1,83 +1,61 @@
 import { $, $$ } from '../../utils/dom'
 
 class Remark {
-  remark: any
-  API: any
+  list: any
 
-  constructor (remark: any, API: any) {
-    this.remark = remark
-    this.API = API
+  constructor (list: any) {
+    this.list = list
+    this.initMain()
+    this.initList()
   }
 
-  editNickname (username: string, nickname: HTMLSpanElement) {
-    return () => {
-      const name = prompt('请输入备注名') || '双击修改备注名'
-      this.remark = {
-        ...this.remark,
-        [username]: name
-      }
+  initMain () {
+    const $fullname: HTMLElement = $$('.vcard-fullname')
 
-      this.API.EDIT_GIST({
-        description: 'Github Helper Plus Sync Settings GIST',
-        files: { ghpsync: { content: JSON.stringify({ remark: this.remark }) } }
-      }).then(() => {
-        nickname.innerText = `(${name})`
-      })
-    }
-  }
-}
-
-class RemarkMain extends Remark {
-  init () {
-    const fullnameEl: HTMLElement = $$('.vcard-fullname')
-
-    if (fullnameEl !== null && !fullnameEl.innerHTML.includes('ghp-nickname__main')) {
-      const name = this.remark[$$('.vcard-username').innerText]
+    if ($fullname !== null && !$fullname.innerHTML.includes('ghp-nickname__main')) {
+      const name = this.list[$$('.vcard-username').innerText]
       const username = $$('.vcard-username').innerText
 
-      const nickname = document.createElement('span')
-      nickname.className = 'ghp-nickname__main'
-      nickname.innerText = `(${name || '双击修改备注名'})`
+      const $nickname = document.createElement('span')
+      $nickname.className = 'ghp-nickname__main'
+      $nickname.innerText = `(${name || '双击修改备注名'})`
 
-      nickname.ondblclick = this.editNickname(username, nickname)
+      $nickname.ondblclick = this.editNickname(username, $nickname)
 
-      $$('.vcard-fullname') && $$('.vcard-fullname').appendChild(nickname)
+      $$('.vcard-fullname') && $$('.vcard-fullname').appendChild($nickname)
     }
   }
-}
 
-class RemarkList extends Remark {
-  init () {
+  initList () {
     if (location.search.includes('tab=follow')) {
       const userNodeList: Array<HTMLElement> = Array.from($('div.d-table-cell.col-9.v-align-top.pr-3 > a'))
-      const listEl = $$('.js-repo-filter.position-relative')
+      const $list = $$('.js-repo-filter.position-relative')
       
-      listEl.ondblclick = (event) => {
-        const target = <HTMLElement>event.target
+      $list.ondblclick = (event) => {
+        const $target = <HTMLElement>event.target
 
-        if (/^nickname-\d/.test(target.id)) {
-          const username = this.getUsername(<HTMLElement>target.previousElementSibling)
+        if (/^nickname-\d/.test($target.id)) {
+          const username = this.getUsername(<HTMLElement>$target.previousElementSibling)
 
-          this.editNickname(username, target)()
+          this.editNickname(username, $target)()
         }
       }
 
       for (let i = 0; i < userNodeList.length; i++) {
-        const item = userNodeList[i]
+        const $item = userNodeList[i]
+        if ($item.parentElement.innerHTML.includes('ghp-nickname__list')) return
 
-        if (!item.innerHTML.includes('ghp-nickname__list')) {
-          const username = this.getUsername(item)
-          const fullname = item.innerText.replace(` ${username}`, '')
+        const username = this.getUsername($item)
+        const fullname = $item.innerText.replace(` ${username}`, '')
 
-          const name = this.remark[username]
+        const name = this.list[username]
 
-          const nickname = document.createElement('span')
-          nickname.className = 'ghp-nickname__list'
-          nickname.innerText = `(${name || '双击修改备注名'})`
-          nickname.id = `nickname-${i}`
+        const $nickname = document.createElement('span')
+        $nickname.className = 'ghp-nickname__list'
+        $nickname.innerText = `(${name || '双击修改备注名'})`
+        $nickname.id = `nickname-${i}`
 
-          item.parentNode.insertBefore(nickname, item.nextSibling)
-        }
+        $item.parentNode.insertBefore($nickname, $item.nextSibling)
       }
     }
   }
@@ -86,11 +64,24 @@ class RemarkList extends Remark {
     const nameArray: Array<string> = item.innerText.split(' ')
     return nameArray[nameArray.length - 1]
   }
+
+  editNickname (username: string, nickname: HTMLSpanElement) {
+    return () => {
+      const name = prompt('请输入备注名') || '双击修改备注名'
+      this.list = {
+        ...this.list,
+        [username]: name
+      }
+
+      chrome.storage.sync.set({
+        GHP: { USER_LIST: this.list }
+      }, () => {
+        nickname.innerText = `(${name})`
+      })
+    }
+  }
 }
 
-export default (content: any, API: any) => {
-  const { remark } = content
-
-  new RemarkMain(remark, API).init()
-  new RemarkList(remark, API).init()
+export default (list: any = []) => {
+  new Remark(list)
 }
