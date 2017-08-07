@@ -1,4 +1,5 @@
 import { $, $$ } from '../../utils/dom'
+import './style.css'
 
 class Remark {
   list: any
@@ -67,7 +68,8 @@ class Remark {
 
   editNickname (username: string, nickname: HTMLSpanElement) {
     return () => {
-      const name = prompt('请输入备注名') || '双击修改备注名'
+      let name = prompt('请输入备注名', this.list[username] || '')
+      name = !name && name !== '' ? this.list[username] : name
       this.list = {
         ...this.list,
         [username]: name
@@ -76,7 +78,7 @@ class Remark {
       chrome.storage.sync.set({
         GHP: { USER_LIST: this.list }
       }, () => {
-        nickname.innerText = `(${name})`
+        nickname.innerText = `(${name || '双击修改备注名'})`
       })
     }
   }
