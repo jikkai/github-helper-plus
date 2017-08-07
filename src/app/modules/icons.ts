@@ -65,7 +65,23 @@ class Icon {
       for (let key in regObj) {
         if (regObj.hasOwnProperty(key)) {
           if (regObj[key].test(content.toLowerCase())) {
-            $content[i].previousElementSibling.innerHTML = `<i class="ghp-icon icon-${key}"></i>`
+            // Hide original icons
+            const $originalIcon = <HTMLElement>$content[i].previousElementSibling
+            $originalIcon.style.display = 'none'
+
+            // Create icon DOM
+            let $icon: HTMLElement
+            const $prevIcon = $originalIcon.previousElementSibling
+            if ($prevIcon && $prevIcon.getAttribute('data-ghpicon') === '1') {
+              $icon = <HTMLElement>$originalIcon.previousElementSibling
+            } else {
+              $icon = document.createElement('td')
+            }
+
+            $icon.className = 'icon'
+            $icon.setAttribute('data-ghpicon', '1')
+            $icon.innerHTML = `<i class="ghp-icon icon-${key}"></i>`
+            $content[i].parentElement.insertBefore($icon, $originalIcon)
           }
         }
       }
@@ -74,14 +90,5 @@ class Icon {
 }
 
 export default () => {
-  const interval = setInterval(_ => {
-    const $icon = $('table.files td.icon')
-    for (let i = 0, len = $icon.length; i < len; i++) {
-      if (~$icon[0].innerHTML.indexOf('<svg')) {
-        clearInterval(interval)
-        new Icon()
-        break
-      }
-    }
-  }, 300)
+  new Icon()
 }
