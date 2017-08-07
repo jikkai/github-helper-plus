@@ -1,5 +1,5 @@
 import { $, $$ } from '../../utils/dom'
-import './icons'
+import './icons.css'
 
 class Icon {
   constructor () {
