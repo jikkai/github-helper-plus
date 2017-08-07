@@ -1,5 +1,5 @@
-import Remark from './modules/remark'
-import Icons from './modules/icons'
+import Remark from './remark'
+import Icons from './icons'
 
 chrome.storage.sync.get('GHP', (data: any)=> {
   const { USER_LIST } = data.GHP
