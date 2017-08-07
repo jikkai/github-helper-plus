@@ -1,5 +1,3 @@
-import Axios from 'axios'
-
 import Remark from './modules/remark'
 import Icons from './modules/icons'
 
