@@ -1,6 +1,6 @@
 {
   "name": "github-helper-plus",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Get a better idea about github!",
   "main": "index.js",
   "repository": "https://github.com/jikkai/github-helper-plus.git",
@@ -12,18 +12,18 @@
     "dev": "webpack --watch"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.47",
+    "@types/chrome": "0.0.48",
     "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.4",
+    "css-loader": "^0.28.5",
     "extract-text-webpack-plugin": "^3.0.0",
     "postcss-loader": "^2.0.6",
     "postcss-salad": "^2.0.1",
     "progress-bar-webpack-plugin": "^1.10.0",
     "rimraf": "^2.6.1",
     "style-loader": "^0.18.2",
-    "ts-loader": "^2.3.2",
+    "ts-loader": "^2.3.3",
     "typescript": "^2.4.2",
     "url-loader": "^0.5.9",
-    "webpack": "^3.4.1"
+    "webpack": "^3.5.5"
   }
 }

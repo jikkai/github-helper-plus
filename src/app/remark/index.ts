@@ -30,8 +30,8 @@ class Remark {
   initList () {
     if (location.search.includes('tab=follow')) {
       const userNodeList: Array<HTMLElement> = Array.from($('div.d-table-cell.col-9.v-align-top.pr-3 > a'))
-      const $list = $$('.js-repo-filter.position-relative')
-      
+      const $list = $$('.float-left > .position-relative')
+
       $list.ondblclick = (event) => {
         const $target = <HTMLElement>event.target
 
