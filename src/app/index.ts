@@ -1,6 +1,7 @@
 import Remark from './remark'
 import Icons from './icons'
 import Download from './download'
+import Contribution from './contribution'
 
 chrome.storage.sync.get('GHP', (data: any)=> {
   const { USER_LIST } = data.GHP
@@ -8,3 +9,4 @@ chrome.storage.sync.get('GHP', (data: any)=> {
 })
 Icons()
 Download()
+Contribution()
