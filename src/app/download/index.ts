@@ -3,6 +3,9 @@ import './style.css'
 
 class Download {
   constructor () {
+    const isPrivate = !!$$('h1.private')
+    if (isPrivate) return
+
     const $content = $('table.files td.content')
 
     for (let i = 0, len = $content.length; i < len; i++) {

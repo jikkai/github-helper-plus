@@ -4,6 +4,10 @@
     size: 14px;
     background-size: cover;
     display: block;
+
+    & + svg {
+      display: none;
+    }
   }
 }
 

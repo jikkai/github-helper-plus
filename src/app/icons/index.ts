@@ -65,9 +65,12 @@ class Icon {
       for (let key in regObj) {
         if (regObj.hasOwnProperty(key)) {
           if (regObj[key].test(content.toLowerCase())) {
-            // Create icon DOM
             const $originalIcon = <HTMLElement>$content[i].previousElementSibling
-            $originalIcon.innerHTML = `<i class="ghp-icon icon-${key}"></i>`
+            if (!$originalIcon.querySelector(`.icon-${key}`)) {
+              const $$icon = document.createElement('i')
+              $$icon.className = `ghp-icon icon-${key}`
+              $originalIcon.insertBefore($$icon, $originalIcon.childNodes[0])
+            }
           }
         }
       }
@@ -76,7 +79,5 @@ class Icon {
 }
 
 export default () => {
-  setTimeout(_ => {
-    new Icon()
-  }, 700)
+  new Icon()
 }

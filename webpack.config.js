@@ -1,10 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 module.exports = {
+  mode: 'production',
   entry: {
     app: './src/app/index.ts',
     background: './src/background/index.ts',
@@ -35,10 +36,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [{ loader: 'css-loader?minimize=true' }, 'postcss-loader'],
-          fallback: 'style-loader'
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.(ico|jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
@@ -54,17 +56,8 @@ module.exports = {
         to: path.join(__dirname, './dist')
       }
     ]),
-    new ExtractTextPlugin('[name]/[name].css'),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      output: {
-        comments: false
-      }
+    new MiniCssExtractPlugin({
+      filename: '[name]/[name].css'
     })
   ]
 }
