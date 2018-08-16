@@ -1,5 +1,5 @@
 import { $, $$ } from '../../utils/dom'
-import './style.css'
+import './style.styl'
 
 class Icon {
   constructor () {
@@ -65,11 +65,14 @@ class Icon {
       for (let key in regObj) {
         if (regObj.hasOwnProperty(key)) {
           if (regObj[key].test(content.toLowerCase())) {
-            const $originalIcon = <HTMLElement>$content[i].previousElementSibling
-            if (!$originalIcon.querySelector(`.icon-${key}`)) {
-              const $$icon = document.createElement('i')
+            const $$originalIcon = <HTMLElement>$content[i].previousElementSibling
+            let $$icon = $$originalIcon.querySelector(`.ghp-icon`)
+            if (!$$icon) {
+              $$icon = document.createElement('i')
               $$icon.className = `ghp-icon icon-${key}`
-              $originalIcon.insertBefore($$icon, $originalIcon.childNodes[0])
+              $$originalIcon.insertBefore($$icon, $$originalIcon.childNodes[0])
+            } else {
+              $$icon.className = `ghp-icon icon-${key}`
             }
           }
         }

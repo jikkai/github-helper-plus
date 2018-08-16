@@ -35,11 +35,12 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.css$/,
+        test: /\.styl$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader'
+          'postcss-loader',
+          'stylus-loader'
         ]
       },
       {

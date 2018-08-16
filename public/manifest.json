@@ -1,13 +1,13 @@
 {
   "name": "Github Helper Plus",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "minimum_chrome_version": "37",
   "manifest_version": 2,
   "description": "Get a better idea about github!",
   "icons": {
-    "128": "icons/icon_128.png",
+    "16": "icons/icon_16.png",
     "48": "icons/icon_48.png",
-    "16": "icons/icon_16.png"
+    "128": "icons/icon_128.png"
   },
   "permissions": [
     "tabs",
@@ -15,12 +15,18 @@
     "*://*.github.com/*"
   ],
   "background": {
-    "scripts": ["background/background.js"]
+    "scripts": [
+      "background/background.js"
+    ]
   },
   "content_scripts": [
     {
-      "matches": ["*://*.github.com/*"],
-      "css": ["app/app.css"]
+      "matches": [
+        "*://*.github.com/*"
+      ],
+      "css": [
+        "app/app.css"
+      ]
     }
   ]
 }

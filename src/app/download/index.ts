@@ -1,5 +1,5 @@
 import { $, $$ } from '../../utils/dom'
-import './style.css'
+import './style.styl'
 
 class Download {
   constructor () {
